@@ -1,4 +1,7 @@
 package com.mubashar.expensetracker.dto;
 
-public record CategoryRequest(String name, Long userId) {
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.validation.annotation.Validated;
+
+public record CategoryRequest(@NotBlank String name, Long userId) {
 }
