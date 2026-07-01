@@ -1,4 +1,4 @@
 package com.mubashar.expensetracker.dto;
 
-public record CategoryRequest() {
+public record CategoryRequest(String name, Long userId) {
 }
