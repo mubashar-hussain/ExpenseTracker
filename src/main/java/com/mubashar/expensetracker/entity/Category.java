@@ -1,30 +1,31 @@
 package com.mubashar.expensetracker.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "category")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
+
     @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "category_Name", nullable = false)
     private String name;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private Long userId;
 
 
 
 
+
+
 }
+
+
