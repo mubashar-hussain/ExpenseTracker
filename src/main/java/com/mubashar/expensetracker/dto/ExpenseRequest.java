@@ -1,4 +1,9 @@
 package com.mubashar.expensetracker.dto;
 
-public record ExpenseRequest() {
+import com.mubashar.expensetracker.entity.Category;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public record ExpenseRequest(BigDecimal amount, String title, LocalDate localDate, String description, Category category) {
 }
