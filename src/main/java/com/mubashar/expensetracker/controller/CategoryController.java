@@ -4,6 +4,7 @@ import com.mubashar.expensetracker.dto.CategoryRequest;
 import com.mubashar.expensetracker.dto.CategoryResponse;
 import com.mubashar.expensetracker.entity.Category;
 import com.mubashar.expensetracker.service.CategoryService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +34,9 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<CategoryResponse>> searchByCategory() {
-       List< CategoryResponse>response = categoryService.allCategories();
+    public ResponseEntity<List<CategoryResponse>> searchByCategory(@RequestParam int pageNo, int pageSize ) {
+
+       List< CategoryResponse>response = categoryService.allCategories(PageRequest.of(pageNo,pageSize));
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
