@@ -7,6 +7,7 @@ import com.mubashar.expensetracker.repository.ExpenseRepo;
 import com.mubashar.expensetracker.entity.Expense;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,11 +23,12 @@ public class ExpenseService {
     }
 
 
-    public List<ExpenseResponse> getAllExpense() {
+    public List<ExpenseResponse> getAllExpense(Pageable pageable) {
 
-        List<Expense> allExpenses = expenseRepo.findAll(); // store all objects in list
 
-        List<ExpenseResponse> expenseResponses = new ArrayList<>();
+        List<Expense> allExpenses =   expenseRepo.findAll(pageable).getContent(); //store all objects in list
+
+      List<ExpenseResponse> expenseResponses = new ArrayList<>();
         for (Expense exp : allExpenses) {
             expenseResponses.add(new ExpenseResponse(exp.getAmount()
                     , exp.getTitle()
