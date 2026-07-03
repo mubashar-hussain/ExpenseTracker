@@ -4,6 +4,8 @@ import com.mubashar.expensetracker.dto.ExpenseRequest;
 import com.mubashar.expensetracker.dto.ExpenseResponse;
 import com.mubashar.expensetracker.entity.Expense;
 import com.mubashar.expensetracker.service.ExpenseService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +36,10 @@ public class ExpenseController {
     }
 
     @GetMapping("/allExpense")
-    public ResponseEntity<List<ExpenseResponse>> getAllExpense(){
+    public ResponseEntity<List<ExpenseResponse>> getAllExpense(@RequestParam int pageNo , @RequestParam int pageSize){
 
-        List<ExpenseResponse> expenseList = expenseService.getAllExpense();
+
+        List<ExpenseResponse> expenseList = expenseService.getAllExpense(PageRequest.of(pageNo, pageSize));
 
         return ResponseEntity.ok(expenseList);
 
