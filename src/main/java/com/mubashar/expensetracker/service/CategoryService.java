@@ -5,6 +5,7 @@ import com.mubashar.expensetracker.dto.CategoryResponse;
 import com.mubashar.expensetracker.entity.Category;
 import com.mubashar.expensetracker.exceptions.CategoryNotFoundException;
 import com.mubashar.expensetracker.repository.CategoryRepo;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,8 +38,8 @@ public class CategoryService {
 
     }
 
-    public List<CategoryResponse> allCategories() {
-        List<Category> allCategory = categoryRepo.findAll() ;
+    public List<CategoryResponse> allCategories(Pageable pageable) {
+        List<Category> allCategory = categoryRepo.findAll(pageable).getContent() ;
 
         List<CategoryResponse> categoryResponses = new ArrayList<>();
         for(Category  category: allCategory){
