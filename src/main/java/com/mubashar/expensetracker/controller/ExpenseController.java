@@ -36,7 +36,7 @@ public class ExpenseController {
     }
 
     @GetMapping("/allExpense")
-    public ResponseEntity<List<ExpenseResponse>> getAllExpense(@RequestParam int pageNo , @RequestParam int pageSize){
+    public ResponseEntity<List<ExpenseResponse>> getAllExpense(@RequestParam(required = false,defaultValue = "1" )int pageNo , @RequestParam(required = false, defaultValue = "3") int pageSize){
 
 
         List<ExpenseResponse> expenseList = expenseService.getAllExpense(PageRequest.of(pageNo, pageSize));
