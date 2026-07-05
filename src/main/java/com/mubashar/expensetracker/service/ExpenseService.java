@@ -23,25 +23,30 @@ public class ExpenseService {
     }
 
 
-    public List<ExpenseResponse> getAllExpense(Pageable pageable) {
+    public List<ExpenseResponse> getAllExpense(Pageable pageable,String search) {
+        if (search == null){
 
+            List<Expense> allExpenses =   expenseRepo.findAll(pageable).getContent();
 
-        List<Expense> allExpenses =   expenseRepo.findAll(pageable).getContent(); //store all objects in list
+            List<ExpenseResponse> expenseResponses = new ArrayList<>();
+            for (Expense exp : allExpenses) {
+                expenseResponses.add(new ExpenseResponse(exp.getAmount()
+                                , exp.getTitle()
+                                , exp.getLocalDate()
+                                , exp.getDescription()
+                                , exp.getCategory()));
 
-      List<ExpenseResponse> expenseResponses = new ArrayList<>();
-        for (Expense exp : allExpenses) {
-            expenseResponses.add(new ExpenseResponse(exp.getAmount()
-                    , exp.getTitle()
-                    , exp.getLocalDate()
-                    , exp.getDescription()
-                    , exp.getCategory()
+            }
+            return expenseResponses;
 
-                    )
-
-            );
+        }else{
+            return expenseRepo.findByTitle(search,pageable).getContent();
 
         }
-        return expenseResponses;
+
+
+
+
     }
 
     public ExpenseResponse expenseById(Long id) {
