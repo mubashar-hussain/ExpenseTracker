@@ -36,24 +36,22 @@ public class ExpenseController {
     }
 
     @GetMapping("/allExpense")
-    public ResponseEntity<List<ExpenseResponse>> getAllExpense(@RequestParam(required = false,defaultValue = "1" )int pageNo , @RequestParam(required = false, defaultValue = "3") int pageSize,
-                                                               @RequestParam(required = false,defaultValue = "id") String sortBy, @RequestParam(required = false,defaultValue = "ASC") String sortDir){
-
-        System.out.println(sortBy);
-        System.out.println(sortDir);
-
-
+    public ResponseEntity<List<ExpenseResponse>> getAllExpense(@RequestParam(required = false,defaultValue = "1" )int pageNo ,
+                                                               @RequestParam(required = false, defaultValue = "3") int pageSize,
+                                                               @RequestParam(required = false,defaultValue = "id") String sortBy,
+                                                               @RequestParam(required = false,defaultValue = "ASC") String sortDir,
+                                                               @RequestParam (required = false) String search){
 
         Sort sort = null;
         if(sortDir.equalsIgnoreCase("ASC")){
 
             sort =  Sort.by(sortBy).ascending();
 
-        }else{
+        }
+        else{
                sort = sort.by(sortBy).descending();
         }
-
-        List<ExpenseResponse> expenseList = expenseService.getAllExpense(PageRequest.of(pageNo, pageSize,sort));
+        List<ExpenseResponse> expenseList = expenseService.getAllExpense(PageRequest.of(pageNo, pageSize,sort),search);
 
         return ResponseEntity.ok(expenseList);
 
@@ -72,7 +70,6 @@ public class ExpenseController {
 
         ExpenseResponse expenseResponse = expenseService.updateExpense(id, expenseRequest);
 
-
         return ResponseEntity.status(HttpStatus.OK).body(expenseResponse);
 
     }
@@ -83,6 +80,5 @@ public class ExpenseController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
     }
-
 
 }
