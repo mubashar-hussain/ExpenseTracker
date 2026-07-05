@@ -37,7 +37,12 @@ public class ExpenseController {
 
     @GetMapping("/allExpense")
     public ResponseEntity<List<ExpenseResponse>> getAllExpense(@RequestParam(required = false,defaultValue = "1" )int pageNo , @RequestParam(required = false, defaultValue = "3") int pageSize,
-                                                               @RequestParam String sortBy, @RequestParam String sortDir){
+                                                               @RequestParam(required = false,defaultValue = "id") String sortBy, @RequestParam(required = false,defaultValue = "ASC") String sortDir){
+
+        System.out.println(sortBy);
+        System.out.println(sortDir);
+
+
 
         Sort sort = null;
         if(sortDir.equalsIgnoreCase("ASC")){
@@ -47,7 +52,6 @@ public class ExpenseController {
         }else{
                sort = sort.by(sortBy).descending();
         }
-
 
         List<ExpenseResponse> expenseList = expenseService.getAllExpense(PageRequest.of(pageNo, pageSize,sort));
 
