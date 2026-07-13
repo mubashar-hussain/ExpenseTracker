@@ -2,12 +2,15 @@ package com.mubashar.expensetracker.service;
 
 import com.mubashar.expensetracker.dto.ExpenseRequest;
 import com.mubashar.expensetracker.dto.ExpenseResponse;
+import com.mubashar.expensetracker.dto.TotalExpenseResponse;
 import com.mubashar.expensetracker.exceptions.ExpenseNotFoundException;
 import com.mubashar.expensetracker.repository.ExpenseRepo;
 import com.mubashar.expensetracker.entity.Expense;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -100,5 +103,12 @@ public class ExpenseService {
         expense.setDescription(expenseRequest.description());
 
         return expenseRepo.save(expense);
+    }
+
+    public TotalExpenseResponse totalExpense() {
+
+        BigDecimal allAmounts = expenseRepo.sumAllAmounts();
+
+        return allAmounts;
     }
 }
