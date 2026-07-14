@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -105,10 +106,14 @@ public class ExpenseService {
         return expenseRepo.save(expense);
     }
 
-    public TotalExpenseResponse totalExpense() {
+   /* public TotalExpenseResponse totalExpense() {
 
         BigDecimal allAmounts = expenseRepo.sumAllAmounts();
 
         return allAmounts;
+    }*/
+
+    public BigDecimal monthlyExpense(LocalDate monthStart, LocalDate monthEnd) {
+        return expenseRepo.sumAmountBetween(monthStart ,monthEnd);
     }
 }
