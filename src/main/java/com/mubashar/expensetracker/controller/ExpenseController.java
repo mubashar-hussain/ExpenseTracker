@@ -7,11 +7,13 @@ import com.mubashar.expensetracker.entity.Expense;
 import com.mubashar.expensetracker.service.ExpenseService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -65,14 +67,14 @@ public class ExpenseController {
         return ResponseEntity.status(HttpStatus.OK).body(expenseResponse);
 
     }
-    @GetMapping("/totalExpense")
+   /* @GetMapping("/totalExpense")
      public ResponseEntity<TotalExpenseResponse> totalExpense(){
 
         BigDecimal amount  = expenseService.totalExpense();
         return ResponseEntity.ok(amount);
 
     }
-
+*/
 
 
     @PutMapping("/expense/{id}")
@@ -90,6 +92,10 @@ public class ExpenseController {
         expenseService.deleteExpense(id);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
+    }
+    @GetMapping("/monthlyExpense")
+    public ResponseEntity<BigDecimal> getMonthlyExpense(@RequestParam LocalDate from,@RequestParam LocalDate to){
+      return   ResponseEntity.ok(expenseService.monthlyExpense(from, to));
     }
 
     // Monthly expenses
